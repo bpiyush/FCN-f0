@@ -2,7 +2,7 @@
 import os
 
 
-def load_model(modelName, from_json = False, FULLCONV = True):
+def load_model(modelName, from_json = False, FULLCONV = True, **build_args):
     '''
     load model from json file and corresponding weights from hdf5 file
     '''
@@ -45,9 +45,9 @@ def load_model(modelName, from_json = False, FULLCONV = True):
     else:
         # for FULLCONV mode, input size is not defined
         if(FULLCONV):
-            model = build_model(learning_rate=0.0002, weightsFile=weightsFile, inputSize=None, training=False)
+            model = build_model(learning_rate=0.0002, weightsFile=weightsFile, inputSize=None, training=False, **build_args)
         else:
-            model = build_model(learning_rate=0.0002, weightsFile=weightsFile, inputSize=inputSize, training=False)
+            model = build_model(learning_rate=0.0002, weightsFile=weightsFile, inputSize=inputSize, training=False, **build_args)
 
     return model
 

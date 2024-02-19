@@ -10,7 +10,7 @@ modified by Luc Ardaillon: 03/07/2019
 # the model is trained on 8kHz audio
 model_srate = 8000
 
-def build_model(learning_rate=0.0002, weightsFile=None, inputSize=993, dropout = 0, training = False):
+def build_model(learning_rate=0.0002, weightsFile=None, inputSize=993, dropout = 0, training = False, turn_off_classifier = False):
     '''
     :param learning_rate:
     :param weightsFile:
@@ -62,6 +62,9 @@ def build_model(learning_rate=0.0002, weightsFile=None, inputSize=993, dropout =
             layer.trainable = True
 
     model.compile(optimizer=optimizers.Adam(lr=learning_rate), loss='binary_crossentropy')
+
+    if turn_off_classifier:
+        model = Model(inputs=x, outputs=model.get_layer('conv6-BN').output)
 
     return model
 
